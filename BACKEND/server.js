@@ -67,7 +67,6 @@ getLatestRelease();
 app.get("/ping", (req, res) => {
   res.status(200).send("pong");
 });
-
 /* -------------- GET METADA OF THE TORRENT ------------- */
 
 app.get("/metadata/:magnet", async (req, res) => {
@@ -268,8 +267,7 @@ app.delete("/remove/:magnet", async (req, res) => {
 });
 /* ------------------------------------------------------ */
 
-
 /* ------------------ START THE SERVER ------------------ */
 app.listen(8000, () => {
-    console.log("Server running at http://localhost:8000");
-  });
+  console.log("Server running at http://localhost:8000");
+});
