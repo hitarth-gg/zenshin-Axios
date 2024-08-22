@@ -62,7 +62,8 @@ const getLatestRelease = async () => {
 getLatestRelease();
 /* ------------------------------------------------------ */
 
-// ping backend : check if the backend is running
+/* ------------------ PING THE BACKEND ------------------ */
+// check if the backend is running
 app.get("/ping", (req, res) => {
   res.status(200).send("pong");
 });
