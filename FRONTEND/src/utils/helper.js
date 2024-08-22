@@ -9,17 +9,6 @@ import {
   TOP_ANIME,
 } from "./api";
 
-// export async function searchAnime(text, limit = 10) {
-//   try {
-//     if (text === "asd") throw new Error("Invalid search query");
-//     const response = await fetch(SEARCH_ANIME(text, limit));
-//     const data = await response.json();
-//     return data;
-//   } catch (error) {
-//     throw new Error(error);
-//   }
-// }
-
 export async function searchAnime(text, limit = 10) {
   try {
     const query = `
@@ -75,8 +64,6 @@ export async function searchAnime(text, limit = 10) {
         data.errors?.[0]?.message || "Failed to fetch anime data",
       );
     }
-
-    // console.log(data.data.Page.media);
 
     return data.data.Page.media;
   } catch (error) {
