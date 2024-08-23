@@ -43,3 +43,6 @@ export function GET_ANIME_MAPPING_BY_ANILIST_ID(anilist_id) {
 export function GET_ANIME_EPISODES_BY_ID(id) {
   return `${BASE_URL_JIKAN}/anime/${id}/episodes`
 }
+
+/* ----------------------- ANILIST ---------------------- */
+

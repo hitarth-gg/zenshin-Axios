@@ -160,6 +160,7 @@ export default function Player(query) {
   };
   const playerRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
+  const [currentEpisode, setCurrentEpisode] = useState("");
 
   const handlePlayerReady = (player) => {
     playerRef.current = player;
@@ -206,7 +207,7 @@ export default function Player(query) {
     }
   };
 
-  const stopEpisodeDownload = async (episode) => {
+  const stopEpisodeDownload2 = async (episode) => {
     try {
       // Send a DELETE request to remove the torrent
       console.log(`http://localhost:8000/deselect/${encodeURIComponent(magnetURI)}/${encodeURIComponent(episode)}`);
@@ -248,6 +249,12 @@ export default function Player(query) {
       });
     }
   };
+
+  // for some reason, calling this function twice works, WebTorrent's file.deselect() is known to be buggy
+  const stopEpisodeDownload = async (episode) => {
+    await stopEpisodeDownload2(episode);
+    await stopEpisodeDownload2(episode);
+  }
 
   /* ------------------------------------------------------ */
   const handleRemoveTorrent = async () => {
@@ -292,7 +299,6 @@ export default function Player(query) {
     }
   };
 
-  const [currentEpisode, setCurrentEpisode] = useState("");
 
   return (
     <div className="flex items-center justify-center font-space-mono">
@@ -312,6 +318,7 @@ export default function Player(query) {
             setCurrentEpisode={setCurrentEpisode}
             currentEpisode={currentEpisode}
             handleStreamVlc={handleStreamVlc}
+            setVideoSrc={setVideoSrc}
           />
         )}
 

@@ -9,6 +9,17 @@ import {
   TOP_ANIME,
 } from "./api";
 
+// export async function searchAnime(text, limit = 10) {
+//   try {
+//     if (text === "asd") throw new Error("Invalid search query");
+//     const response = await fetch(SEARCH_ANIME(text, limit));
+//     const data = await response.json();
+//     return data;
+//   } catch (error) {
+//     throw new Error(error);
+//   }
+// }
+
 export async function searchAnime(text, limit = 10) {
   try {
     const query = `
@@ -65,6 +76,8 @@ export async function searchAnime(text, limit = 10) {
       );
     }
 
+    // console.log(data.data.Page.media);
+
     return data.data.Page.media;
   } catch (error) {
     throw new Error(error.message || error);
@@ -75,7 +88,7 @@ export async function searchAnime(text, limit = 10) {
 export async function getTopAiringAnime() {
   const query = `
     query {
-      Page(perPage: 30, page: 1) {
+      Page(perPage: 35, page: 1) {
         media(type: ANIME, sort: TRENDING_DESC, status: RELEASING, isAdult: false) {
           id
           idMal
