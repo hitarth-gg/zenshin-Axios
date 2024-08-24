@@ -6,7 +6,7 @@ import CenteredLoader from "../ui/CenteredLoader";
 import Episode from "../components/Episode";
 import { Button } from "@radix-ui/themes";
 import { toast } from "sonner";
-import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
+import { ExclamationTriangleIcon, StarFilledIcon } from "@radix-ui/react-icons";
 import useGetAniZipMappings from "../hooks/useGetAniZipMappings";
 import useGetAnimeByMalId from "../hooks/useGetAnimeByMalId";
 import { autop } from "@wordpress/autop";
@@ -53,17 +53,17 @@ export default function AnimePage() {
         console.log(`Anime ${aniid} added to favorites!`);
 
         toast.success("Anime added to favorites!", {
-          icon: <ExclamationTriangleIcon height="16" width="16" color="#ffffff" />,
+          icon: <StarFilledIcon height="16" width="16" color="#ffffff" />,
           classNames: {
             title: "text-green-500",
           },
         });
     } else {
         console.log(`Anime ${aniid} is already in favorites.`);
-        toast.warning("Anime is already in favorites!", {
+        toast.error("Anime is already in favorites!", {
           icon: <ExclamationTriangleIcon height="16" width="16" color="#ffffff" />,
           classNames: {
-            title: "text-yellow-500",
+            title: "text-rose-500",
           },
         });
     }
@@ -243,7 +243,7 @@ export default function AnimePage() {
               )}
             </div>
             <div className="mt-6 flex gap-x-5">
-                <Button onClick={()=>{handleFavorite(animeId)}}>
+                <Button size={"1"} onClick={()=>{handleFavorite(animeId)}}>
                   Add to Favorites
                 </Button>
             </div>

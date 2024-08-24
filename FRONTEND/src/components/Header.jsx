@@ -12,7 +12,8 @@ import { Button } from "@radix-ui/themes";
 export default function Header({ theme, toggleTheme }) {
   return (
     <div className="sticky top-0 z-10 flex h-12 items-center justify-between border-[#5a5e6750] bg-[#111113] bg-opacity-60 px-4 py-3 backdrop-blur-md">
-      <div className="flex items-center justify-center gap-x-2">
+      
+      <div className="flex w-full items-center justify-start gap-x-2">
         <Link
           className="hover: font-spaceMono flex w-fit cursor-pointer select-none gap-x-2 rounded-sm p-1 text-sm transition-all duration-200 hover:bg-[#70707030]"
           to={"/"}
@@ -49,10 +50,10 @@ export default function Header({ theme, toggleTheme }) {
         )}
       </div>
 
-      <div className="w-2/6">
+      <div className="w-11/12">
         <SearchBar />
       </div>
-      <div className="flex items-center justify-center gap-x-8">
+      <div className="flex w-full items-center justify-end gap-x-8">
         <Link target="_blank" to="https://github.com/hitarth-gg/zenshin">
           <Button color="gray" variant="ghost" size={"1"}>
             <div className="p-1 text-[.8rem]">How to use</div>
