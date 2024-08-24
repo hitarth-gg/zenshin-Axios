@@ -50,7 +50,7 @@ const router = createBrowserRouter(
     },
   ],
   {
-    basename: "/zenshin",
+    basename: "/zenshin-axios",
   },
 );
 

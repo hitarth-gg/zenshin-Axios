@@ -143,7 +143,12 @@ export async function searchAiringAnime(text, limit = 2) {
 
     const data = await response.json();
 
-    if (!response.ok) {
+    if (response.status === 429) {
+      throw new Error(
+        "Too many requests to the API. You are being rate-limited. Please come back after a minute.",
+      );
+    }
+    else if (!response.ok) {
       throw new Error(
         data.errors?.[0]?.message || "Failed to fetch anime data",
       );
@@ -151,6 +156,8 @@ export async function searchAiringAnime(text, limit = 2) {
 
     return data.data.Page.media;
   } catch (error) {
+    if(error.message.includes("Failed to fetch"))
+      throw new Error("Too many requests to the API. You are being rate-limited. Please come back after a minute.");
     throw new Error(error.message || error);
   }
 }

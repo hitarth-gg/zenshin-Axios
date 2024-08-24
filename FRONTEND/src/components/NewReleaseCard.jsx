@@ -47,7 +47,7 @@ export default function NewReleaseCard({ data }) {
   const navigate = useNavigate();
   const magnet = magnetRegex(data?.description[0]) || "";
 
-  console.log(data);
+  // console.log(data);
 
   function handleClick() {
     navigate(`/player/${encodeURIComponent(magnet)}`);
@@ -69,7 +69,7 @@ export default function NewReleaseCard({ data }) {
     async function fetchAnilistId() {
       try {
         const data = await searchAiringAnime(title);
-        console.log(data);
+        // console.log(data);
         setAnilistData(data[0]);
         setAnilistId(data[0]?.id);
       } catch (error) {
@@ -99,7 +99,7 @@ export default function NewReleaseCard({ data }) {
     let episodesObj = mappingsData?.episodes;
     // convert episodes object to array
     let episodesArr = Object.keys(episodesObj).map((key) => episodesObj[key]);
-    console.log(episodesArr);
+    // console.log(episodesArr);
 
     for (let i = 0; i < episodesArr.length; i++) {
       if (
