@@ -36,6 +36,17 @@ export default function Header({ theme, toggleTheme }) {
             <div className="p-1 font-space-mono text-[.8rem]">New Releases</div>
           </Link>
         </Button>
+        <DividerVerticalIcon width={20} height={20} color="#ffffff40" />
+        {window.location.pathname === "/zenshin/favorites" ? (
+          <div>
+          </div>
+        ) : (
+          <Button color="gold" variant="ghost" size={"1"}>
+            <Link to="/favorites">
+              <div className="p-1 font-space-mono text-[.8rem]">Favorites</div>
+            </Link>
+          </Button>
+        )}
       </div>
 
       <div className="w-2/6">

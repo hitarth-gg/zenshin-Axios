@@ -37,6 +37,38 @@ export default function AnimePage() {
     status: statusMalId,
   } = useGetAnimeByMalId(malId || null);
 
+  
+  function handleFavorite(aniid) {
+    // Get the existing favorites from local storage
+    let favorites = JSON.parse(localStorage.getItem('favoritesList')) || [];
+
+    // Check if the movie is already in the favorites list
+    if (!favorites.includes(aniid)) {
+        // Add the movie ID to the favorites list
+        favorites.push(aniid);
+        
+        // Save the updated favorites list back to local storage
+        localStorage.setItem('favoritesList', JSON.stringify(favorites));
+
+        console.log(`Anime ${aniid} added to favorites!`);
+
+        toast.success("Anime added to favorites!", {
+          icon: <ExclamationTriangleIcon height="16" width="16" color="#ffffff" />,
+          classNames: {
+            title: "text-green-500",
+          },
+        });
+    } else {
+        console.log(`Anime ${aniid} is already in favorites.`);
+        toast.warning("Anime is already in favorites!", {
+          icon: <ExclamationTriangleIcon height="16" width="16" color="#ffffff" />,
+          classNames: {
+            title: "text-yellow-500",
+          },
+        });
+    }
+  }
+
   let episodesAnizip = mappingsData?.episodes;
   let aniZip_titles = {
     en: "",
@@ -185,6 +217,7 @@ export default function AnimePage() {
                 )}
               </div>
             </div>
+            <div className="flex justify-between">
             <div className="mt-6 flex gap-x-5">
               <Link target="_blank" to={data?.siteUrl}>
                 <Button size={"1"} variant="">
@@ -208,6 +241,12 @@ export default function AnimePage() {
                   </Button>
                 </Link>
               )}
+            </div>
+            <div className="mt-6 flex gap-x-5">
+                <Button onClick={()=>{handleFavorite(animeId)}}>
+                  Add to Favorites
+                </Button>
+            </div>
             </div>
           </div>
         </div>

@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import AnimePage from "./pages/AnimePage";
 import Player from "./pages/Player";
+import Favorite from "./pages/FavoritePage";
 import NewReleases from "./pages/NewReleases";
 
 // import { lazy } from "react";
@@ -37,6 +38,11 @@ const router = createBrowserRouter(
         {
           path: "/newreleases",
           element: <NewReleases />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "/favorites",
+          element: <Favorite />,
           errorElement: <ErrorPage />,
         }
         
