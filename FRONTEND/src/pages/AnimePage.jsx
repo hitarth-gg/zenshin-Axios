@@ -1,12 +1,12 @@
 import { Link, useParams } from "react-router-dom";
 import useGetAnimeById from "../hooks/useGetAnimeById";
 import { format } from "date-fns";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CenteredLoader from "../ui/CenteredLoader";
 import Episode from "../components/Episode";
 import { Button } from "@radix-ui/themes";
 import { toast } from "sonner";
-import { ExclamationTriangleIcon, StarFilledIcon } from "@radix-ui/react-icons";
+import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import useGetAniZipMappings from "../hooks/useGetAniZipMappings";
 import useGetAnimeByMalId from "../hooks/useGetAnimeByMalId";
 import { autop } from "@wordpress/autop";
@@ -41,33 +41,67 @@ export default function AnimePage() {
   function handleFavorite(aniid) {
     // Get the existing favorites from local storage
     let favorites = JSON.parse(localStorage.getItem('favoritesList')) || [];
-
     // Check if the movie is already in the favorites list
     if (!favorites.includes(aniid)) {
         // Add the movie ID to the favorites list
         favorites.push(aniid);
-        
         // Save the updated favorites list back to local storage
         localStorage.setItem('favoritesList', JSON.stringify(favorites));
-
-        console.log(`Anime ${aniid} added to favorites!`);
-
+        // console.log(`Anime ${aniid} added to favorites!`);
         toast.success("Anime added to favorites!", {
-          icon: <StarFilledIcon height="16" width="16" color="#ffffff" />,
+          icon: <ExclamationTriangleIcon height="16" width="16" color="#ffffff" />,
           classNames: {
             title: "text-green-500",
           },
         });
     } else {
-        console.log(`Anime ${aniid} is already in favorites.`);
-        toast.error("Anime is already in favorites!", {
+        // console.log(`Anime ${aniid} is already in favorites.`);
+        toast.warning("Anime is already in favorites!", {
           icon: <ExclamationTriangleIcon height="16" width="16" color="#ffffff" />,
           classNames: {
-            title: "text-rose-500",
+            title: "text-yellow-500",
           },
         });
     }
   }
+  const removeFavorite = (aniid) => {
+    const favorites = JSON.parse(localStorage.getItem('favoritesList')) || [];
+    const updatedFavorites = favorites.filter(id => id !== aniid);
+
+    if (updatedFavorites.length !== favorites.length) {
+        // Save the updated favorites list back to local storage
+        localStorage.setItem('favoritesList', JSON.stringify(updatedFavorites));
+
+        // console.log(`Anime ${aniid} removed from favorites!`);
+        toast.message("Anime removed from favorites!", {
+            icon: <ExclamationTriangleIcon height="16" width="16" color="#ffffff" />,
+            className: "text-red-500",
+        });
+    } else {
+        // console.log(`Anime ${aniid} is not in the favorites list.`);
+        toast.warning("Anime is not in your favorites list!", {
+            icon: <ExclamationTriangleIcon height="16" width="16" color="#ffffff" />,
+            className: "text-yellow-500",
+        });
+    }
+  };
+
+  const [isFavorite, setIsFavorite] = useState(false);
+
+    useEffect(() => {
+        const storedFavorites = JSON.parse(localStorage.getItem('favoritesList')) || [];
+        setIsFavorite(storedFavorites.includes(animeId));
+    }, [animeId]);
+
+    const handleFavoriteClick = () => {
+        handleFavorite(animeId);
+        setIsFavorite(true); // Update state to reflect the change
+    };
+
+    const handleRemoveClick = () => {
+        removeFavorite(animeId);
+        setIsFavorite(false); // Update state to reflect the change
+    };
 
   let episodesAnizip = mappingsData?.episodes;
   let aniZip_titles = {
@@ -242,11 +276,17 @@ export default function AnimePage() {
                 </Link>
               )}
             </div>
-            <div className="mt-6 flex gap-x-5">
-                <Button size={"1"} onClick={()=>{handleFavorite(animeId)}}>
-                  Add to Favorites
-                </Button>
-            </div>
+              <div className="mt-6 flex gap-x-5">
+                {isFavorite ? (
+                  <Button onClick={handleRemoveClick}>
+                    Remove from Favorites
+                  </Button>
+                ) : (
+                  <Button onClick={handleFavoriteClick}>
+                    Add to Favorites
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
         </div>
