@@ -1,7 +1,11 @@
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import { useZenshinContext } from "../utils/ContextProvider";
 
 export default function AnimeCard({ data }) {
+  const zenshinContext = useZenshinContext();
+  const { glow } = zenshinContext;
+
   // console.log(data);
   const navigate = useNavigate();
 
@@ -20,13 +24,14 @@ export default function AnimeCard({ data }) {
   return (
     <div
       onClick={() => handleClick()}
-      className="m-4 flex w-48 cursor-pointer flex-col items-center justify-center gap-y-2 transition-all ease-in-out hover:scale-110"
+      className="group relative m-4 flex w-48 cursor-pointer flex-col items-center justify-center gap-y-2 transition-all ease-in-out hover:scale-110"
     >
       <img
         src={data?.coverImage?.extraLarge}
         alt=""
-        className="duration-400 h-60 w-40 animate-fade rounded-md object-cover transition-all ease-in-out"
+        className="duration-400 z-10 h-60 w-40 animate-fade rounded-md object-cover transition-all ease-in-out"
       />
+
       <div className="flex w-[85%] flex-col gap-y-1">
         <div className="line-clamp-2 h-11 w-full text-sm font-medium opacity-90">
           {data?.title?.romaji}
@@ -38,6 +43,14 @@ export default function AnimeCard({ data }) {
         </div>
         <div></div>
       </div>
+      {/* FOR IMAGE GLOW */}
+      {glow && (
+          <img
+            src={data?.coverImage?.extraLarge}
+            alt=""
+            className="duration-400 absolute top-0 z-0 h-60 w-40 rounded-md object-cover opacity-20 blur-2xl contrast-200 saturate-200 transition-all ease-in-out group-hover:opacity-60"
+          />
+      )}
     </div>
   );
 }

@@ -5,10 +5,13 @@ import {
   DividerVerticalIcon,
   GitHubLogoIcon,
   MoonIcon,
+  ShadowIcon,
+  ShadowNoneIcon,
   SunIcon,
 } from "@radix-ui/react-icons";
 import { Button, DropdownMenu } from "@radix-ui/themes";
 import { useEffect, useState } from "react";
+import { useZenshinContext } from "../utils/ContextProvider";
 // const YOUR_REDIRECT_URI= "http://localhost:5173/zenshin-axios/login"
 const YOUR_CLIENT_ID = 20712;
 const anilistAuthUrl = `https://anilist.co/api/v2/oauth/authorize?client_id=${YOUR_CLIENT_ID}&response_type=token`;
@@ -16,6 +19,12 @@ const anilistAuthUrl = `https://anilist.co/api/v2/oauth/authorize?client_id=${YO
 
 
 export default function Header({ theme, toggleTheme }) {
+
+  const zenshinContext = useZenshinContext();
+  function toggleGlow() {
+    zenshinContext.setGlow(!zenshinContext.glow);
+  }
+
   const navigate = useNavigate();
   const handleLogin = () => {
     window.location.href = anilistAuthUrl;
@@ -85,7 +94,7 @@ export default function Header({ theme, toggleTheme }) {
 
 
   return (
-    <div className="sticky top-0 z-10 flex h-12 items-center justify-between border-[#5a5e6750] bg-[#111113] bg-opacity-60 px-4 py-3 backdrop-blur-md">
+    <div className="sticky top-0 z-20 flex h-12 items-center justify-between border-[#5a5e6750] bg-[#111113] bg-opacity-60 px-4 py-3 backdrop-blur-md">
       <div className="flex w-full items-center justify-start gap-x-2">
         <Link
           className="hover: font-spaceMono flex w-fit cursor-pointer select-none gap-x-2 rounded-sm p-1 text-sm transition-all duration-200 hover:bg-[#70707030]"
@@ -181,11 +190,11 @@ export default function Header({ theme, toggleTheme }) {
             <div className="p-1 text-[.8rem]">How to use</div>
           </Button>
         </Link>
-        <Button color="gray" variant="ghost" size={"1"} onClick={toggleTheme}>
-          {theme === "dark" ? (
-            <MoonIcon className="my-1" width={17} height={17} />
+        <Button color="gray" variant="ghost" size={"1"} onClick={() => toggleGlow()}>
+          {zenshinContext.glow ? (
+            <ShadowIcon className="my-1" width={16} height={16} />
           ) : (
-            <SunIcon className="my-1" width={17} height={17} />
+            <ShadowNoneIcon className="my-1" width={16} height={16} />
           )}
         </Button>
       </div>

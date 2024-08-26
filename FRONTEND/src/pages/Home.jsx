@@ -176,7 +176,7 @@ export default function Home() {
             console.error("GraphQL error:", data.errors);
           } else {
             console.log("Media list collection:", data);
-            setWatchingAnime(data.data.MediaListCollection.lists[2]?.entries);
+            setWatchingAnime(data?.data?.MediaListCollection?.lists[2]?.entries);
           }
         })
         .catch((error) =>
@@ -225,22 +225,6 @@ export default function Home() {
         </div>
       )}
 
-      {watchingAnime.length > 0 && (
-        <div className="mx-5 animate-fade mt-8">
-          <div className="mb-2 ml-8 border-b border-gray-700 pb-1 font-space-mono text-lg font-bold tracking-wider">
-            Currently Watching Anime
-          </div>
-          <div className="grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7">
-            {!isLoading &&
-              !error &&
-              watchingAnime?.map(
-                (anime) => (
-                  (<AnimeCard key={anime.id + "topAiringAnime"} data={anime.media} />)
-                ),
-              )}
-          </div>
-        </div>
-      )}
       {status === "success" && !error && (
         <div className="mx-5 mt-8">
           <div className="mb-2 ml-8 border-b border-gray-700 pb-1 font-space-mono text-lg font-bold tracking-wider">
@@ -259,6 +243,24 @@ export default function Home() {
       {infiniteQueryError && (
         <div className="text-red-500">
           Failed to fetch Top Anime : {infiniteQueryError.message}
+        </div>
+      )}
+
+      {watchingAnime?.length > 0 && (
+        <div className="mx-5 mt-8 animate-fade">
+          <div className="mb-2 ml-8 border-b border-gray-700 pb-1 font-space-mono text-lg font-bold tracking-wider">
+            Currently Watching Anime
+          </div>
+          <div className="grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7">
+            {!isLoading &&
+              !error &&
+              watchingAnime?.map((anime) => (
+                <AnimeCard
+                  key={anime.id + "topAiringAnime"}
+                  data={anime.media}
+                />
+              ))}
+          </div>
         </div>
       )}
 
