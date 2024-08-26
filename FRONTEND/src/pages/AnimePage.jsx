@@ -14,7 +14,6 @@ import parse from "html-react-parser";
 import { useZenshinContext } from "../utils/ContextProvider";
 
 export default function AnimePage() {
-
   const zenshinContext = useZenshinContext();
   const { glow } = zenshinContext;
 
@@ -42,71 +41,81 @@ export default function AnimePage() {
     status: statusMalId,
   } = useGetAnimeByMalId(malId || null);
 
-  
   function handleFavorite(aniid) {
     // Get the existing favorites from local storage
-    let favorites = JSON.parse(localStorage.getItem('favoritesList')) || [];
+    let favorites = JSON.parse(localStorage.getItem("favoritesList")) || [];
     // Check if the movie is already in the favorites list
     if (!favorites.includes(aniid)) {
-        // Add the movie ID to the favorites list
-        favorites.push(aniid);
-        // Save the updated favorites list back to local storage
-        localStorage.setItem('favoritesList', JSON.stringify(favorites));
-        // console.log(`Anime ${aniid} added to favorites!`);
-        toast.success("Anime added to favorites!", {
-          icon: <ExclamationTriangleIcon height="16" width="16" color="#ffffff" />,
-          classNames: {
-            title: "text-green-500",
-          },
-        });
+      // Add the movie ID to the favorites list
+      favorites.push(aniid);
+      // Save the updated favorites list back to local storage
+      localStorage.setItem("favoritesList", JSON.stringify(favorites));
+      // console.log(`Anime ${aniid} added to favorites!`);
+      toast.success("Anime added to favorites!", {
+        icon: (
+          <ExclamationTriangleIcon height="16" width="16" color="#ffffff" />
+        ),
+        classNames: {
+          title: "text-green-500",
+        },
+      });
     } else {
-        // console.log(`Anime ${aniid} is already in favorites.`);
-        toast.warning("Anime is already in favorites!", {
-          icon: <ExclamationTriangleIcon height="16" width="16" color="#ffffff" />,
-          classNames: {
-            title: "text-yellow-500",
-          },
-        });
+      // console.log(`Anime ${aniid} is already in favorites.`);
+      toast.warning("Anime is already in favorites!", {
+        icon: (
+          <ExclamationTriangleIcon height="16" width="16" color="#ffffff" />
+        ),
+        classNames: {
+          title: "text-yellow-500",
+        },
+      });
     }
   }
   const removeFavorite = (aniid) => {
-    const favorites = JSON.parse(localStorage.getItem('favoritesList')) || [];
-    const updatedFavorites = favorites.filter(id => id !== aniid);
+    const favorites = JSON.parse(localStorage.getItem("favoritesList")) || [];
+    const updatedFavorites = favorites.filter((id) => id !== aniid);
 
     if (updatedFavorites.length !== favorites.length) {
-        // Save the updated favorites list back to local storage
-        localStorage.setItem('favoritesList', JSON.stringify(updatedFavorites));
+      // Save the updated favorites list back to local storage
+      localStorage.setItem("favoritesList", JSON.stringify(updatedFavorites));
 
-        // console.log(`Anime ${aniid} removed from favorites!`);
-        toast.message("Anime removed from favorites!", {
-            icon: <ExclamationTriangleIcon height="16" width="16" color="#ffffff" />,
-            className: "text-red-500",
-        });
+      // console.log(`Anime ${aniid} removed from favorites!`);
+      toast.error("Anime removed from favorites!", {
+        icon: (
+          <ExclamationTriangleIcon height="16" width="16" color="#ffffff" />
+        ),
+        classNames: {
+          title: "text-rose-500",
+        },
+      });
     } else {
-        // console.log(`Anime ${aniid} is not in the favorites list.`);
-        toast.warning("Anime is not in your favorites list!", {
-            icon: <ExclamationTriangleIcon height="16" width="16" color="#ffffff" />,
-            className: "text-yellow-500",
-        });
+      // console.log(`Anime ${aniid} is not in the favorites list.`);
+      toast.warning("Anime is not in your favorites list!", {
+        icon: (
+          <ExclamationTriangleIcon height="16" width="16" color="#ffffff" />
+        ),
+        className: "text-yellow-500",
+      });
     }
   };
 
   const [isFavorite, setIsFavorite] = useState(false);
 
-    useEffect(() => {
-        const storedFavorites = JSON.parse(localStorage.getItem('favoritesList')) || [];
-        setIsFavorite(storedFavorites.includes(animeId));
-    }, [animeId]);
+  useEffect(() => {
+    const storedFavorites =
+      JSON.parse(localStorage.getItem("favoritesList")) || [];
+    setIsFavorite(storedFavorites.includes(animeId));
+  }, [animeId]);
 
-    const handleFavoriteClick = () => {
-        handleFavorite(animeId);
-        setIsFavorite(true); // Update state to reflect the change
-    };
+  const handleFavoriteClick = () => {
+    handleFavorite(animeId);
+    setIsFavorite(true); // Update state to reflect the change
+  };
 
-    const handleRemoveClick = () => {
-        removeFavorite(animeId);
-        setIsFavorite(false); // Update state to reflect the change
-    };
+  const handleRemoveClick = () => {
+    removeFavorite(animeId);
+    setIsFavorite(false); // Update state to reflect the change
+  };
 
   let episodesAnizip = mappingsData?.episodes;
   let aniZip_titles = {
@@ -207,13 +216,15 @@ export default function AnimePage() {
       {data?.bannerImage && (
         // <div className="p-4 px-8">
         <div className="relative">
-          {glow && <div className="animate-fade-down">
-            <img
-              src={data?.bannerImage}
-              className="absolute top-0 saturate-150 z-0 h-72 w-full object-cover opacity-70 blur-3xl brightness-75"
-              alt=""
-            />
-          </div>}
+          {glow && (
+            <div className="animate-fade-down">
+              <img
+                src={data?.bannerImage}
+                className="absolute top-0 z-0 h-72 w-full object-cover opacity-70 blur-3xl brightness-75 saturate-150"
+                alt=""
+              />
+            </div>
+          )}
           <img
             src={data?.bannerImage}
             className="z-10 h-72 w-full animate-fade-down object-cover brightness-75"
@@ -264,30 +275,30 @@ export default function AnimePage() {
               </div>
             </div>
             <div className="flex justify-between">
-            <div className="mt-6 flex gap-x-5">
-              <Link target="_blank" to={data?.siteUrl}>
-                <Button size={"1"} variant="">
-                  AniList
-                </Button>
-              </Link>
-              {malIdData?.data?.url && (
-                <Link target="_blank" to={malIdData?.data?.url}>
+              <div className="mt-6 flex gap-x-5">
+                <Link target="_blank" to={data?.siteUrl}>
                   <Button size={"1"} variant="">
-                    MyAnimeList
+                    AniList
                   </Button>
                 </Link>
-              )}
-              {data?.trailer?.site === "youtube" && (
-                <Link
-                  target="_blank"
-                  to={`https://www.youtube.com/watch?v=${data?.trailer.id}`}
-                >
-                  <Button size={"1"} color="red" variant="">
-                    YouTube
-                  </Button>
-                </Link>
-              )}
-            </div>
+                {malIdData?.data?.url && (
+                  <Link target="_blank" to={malIdData?.data?.url}>
+                    <Button size={"1"} variant="">
+                      MyAnimeList
+                    </Button>
+                  </Link>
+                )}
+                {data?.trailer?.site === "youtube" && (
+                  <Link
+                    target="_blank"
+                    to={`https://www.youtube.com/watch?v=${data?.trailer.id}`}
+                  >
+                    <Button size={"1"} color="red" variant="">
+                      YouTube
+                    </Button>
+                  </Link>
+                )}
+              </div>
               <div className="mt-6 flex gap-x-5">
                 {isFavorite ? (
                   <Button onClick={handleRemoveClick}>
