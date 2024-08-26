@@ -75,6 +75,37 @@ export default function Home() {
   console.log(data);
 
   useEffect(() => {
+    const extractTokenFromHash = () => {
+      const hash = window.location.hash;
+
+      if (hash) {
+        const params = new URLSearchParams(hash.substring(1)); // Remove the # at the beginning
+        const accessToken = params.get("access_token");
+        const tokenType = params.get("token_type");
+        const expiresIn = params.get("expires_in");
+
+        if (accessToken) {
+          // Store the access token in local storage
+          localStorage.setItem("anilist_token", accessToken);
+          console.log(`Access Token: ${accessToken}`);
+          console.log(`Token Type: ${tokenType}`);
+          console.log(`Expires In: ${expiresIn}`);
+
+          // Optionally, you might want to clear the hash from the URL
+          window.location.hash = "";
+
+          toast.success("Successfully logged in to AniList", {
+            icon: (
+              <ExclamationTriangleIcon height="16" width="16" color="#ffffff" />
+            ),
+            classNames: {
+              title: "text-green-500",
+            },
+          });
+        }
+      }
+    };
+    extractTokenFromHash();
     if (data) {
       const newTopAnime = data.pages
         .map((page) => page)
@@ -83,6 +114,78 @@ export default function Home() {
       setTopAnime(newTopAnime);
     }
   }, [data]);
+
+  /* ------------------------------------------------------ */
+
+  const [watchingAnime, setWatchingAnime] = useState([]);
+  const anilistToken = localStorage.getItem("anilist_token");
+  const anilistId = localStorage.getItem("anilist_id");
+
+  useEffect(() => {
+    if (anilistToken) {
+      fetch("https://graphql.anilist.co", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${anilistToken}`,
+        },
+        body: JSON.stringify({
+          query: `
+            query ($userId: Int, $type: MediaType) {
+              MediaListCollection(userId: $userId, type: $type) {
+                lists {
+                  name
+                  entries {
+                    media {
+                      id
+          idMal
+          bannerImage
+          title {
+            romaji
+            english
+            native
+          }
+          coverImage {
+            extraLarge
+          }
+          description
+          episodes
+          averageScore
+          popularity
+          startDate {
+            year
+            month
+            day
+          }
+          format
+                    }
+                  }
+                }
+              }
+            }
+          `,
+          variables: {
+            userId: anilistId, // Replace with the actual user ID
+            type: "ANIME", // Type can be either "ANIME" or "MANGA"
+          },
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.errors) {
+            console.error("GraphQL error:", data.errors);
+          } else {
+            console.log("Media list collection:", data);
+            setWatchingAnime(data.data.MediaListCollection.lists[2]?.entries);
+          }
+        })
+        .catch((error) =>
+          console.error("Error fetching currently watching anime:", error),
+        );
+    }
+  }, [anilistId, anilistToken]);
+
+  // console.log(watchingAnime);
 
   // TOO LAZY TOO MAKE THIS RESPONSIVE
   return (
@@ -105,12 +208,7 @@ export default function Home() {
           <p className="font-space-mono">
             Stream your favourite torrents instantly with our service, no
             waiting for downloads, reliable and seamless streaming directly to
-            your browser / VLC Media Player. 
-            {/* <br /> Built with{" "}
-            <span className="text-cyan-300">React</span>,{" "}
-            <span className="text-orange-300">TanStack Query</span>, Radix UI,
-            ExpressJS, Tailwind CSS,{" "}
-            <span className="text-red-500">WebTorrent</span>, Video.js and more. */}
+            your browser / VLC Media Player.
           </p>
         </div>
 
@@ -127,9 +225,25 @@ export default function Home() {
         </div>
       )}
 
+      {watchingAnime.length > 0 && (
+        <div className="mx-5 animate-fade mt-8">
+          <div className="mb-2 ml-8 border-b border-gray-700 pb-1 font-space-mono text-lg font-bold tracking-wider">
+            Currently Watching Anime
+          </div>
+          <div className="grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7">
+            {!isLoading &&
+              !error &&
+              watchingAnime?.map(
+                (anime) => (
+                  (<AnimeCard key={anime.id + "topAiringAnime"} data={anime.media} />)
+                ),
+              )}
+          </div>
+        </div>
+      )}
       {status === "success" && !error && (
         <div className="mx-5 mt-8">
-          <div className="mb-2 ml-8 tracking-wider text-lg border-b border-gray-700 pb-1 font-space-mono font-bold">
+          <div className="mb-2 ml-8 border-b border-gray-700 pb-1 font-space-mono text-lg font-bold tracking-wider">
             Top Airing Anime
           </div>
           <div className="grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7">
@@ -150,7 +264,7 @@ export default function Home() {
 
       {!infiniteQueryError && topAnime.length > 0 && (
         <div className="mx-5 mt-12">
-          <div className="ml-8 tracking-wider mb-2 text-lg border-b border-gray-700 pb-1 font-space-mono font-bold">
+          <div className="mb-2 ml-8 border-b border-gray-700 pb-1 font-space-mono text-lg font-bold tracking-wider">
             Top Anime
           </div>
           <InfiniteScroll

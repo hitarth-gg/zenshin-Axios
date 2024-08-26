@@ -8,6 +8,7 @@ import AnimePage from "./pages/AnimePage";
 import Player from "./pages/Player";
 import Favorite from "./pages/FavoritePage";
 import NewReleases from "./pages/NewReleases";
+import AnilistCaller from "./pages/AnilistCaller";
 
 // import { lazy } from "react";
 
@@ -45,6 +46,12 @@ const router = createBrowserRouter(
           element: <Favorite />,
           errorElement: <ErrorPage />,
         },
+        {
+          path: "/login",
+          element: <AnilistCaller />,
+          errorElement: <ErrorPage />,
+        }
+        
       ],
     },
   ],
