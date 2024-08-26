@@ -44,8 +44,7 @@ const router = createBrowserRouter(
           path: "/favorites",
           element: <Favorite />,
           errorElement: <ErrorPage />,
-        }
-        
+        },
       ],
     },
   ],
