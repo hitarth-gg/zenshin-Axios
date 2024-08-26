@@ -106,7 +106,7 @@ export default function Header({ theme, toggleTheme }) {
         <DividerVerticalIcon width={20} height={20} color="#ffffff40" />
         <Button color="gray" variant="ghost" size={"1"}>
           <a
-            href="https://github.com/hitarth-gg"
+            href="https://github.com/hitarth-gg/zenshin-axios"
             target="_blank"
             rel="noreferrer"
           >
@@ -123,7 +123,7 @@ export default function Header({ theme, toggleTheme }) {
         {window.location.pathname === "/zenshin/favorites" ? (
           <div></div>
         ) : (
-          <Button color="gold" variant="ghost" size={"1"}>
+          <Button color="gray" variant="ghost" size={"1"}>
             <Link to="/favorites">
               <div className="p-1 font-space-mono text-[.8rem]">Favorites</div>
             </Link>
@@ -185,11 +185,11 @@ export default function Header({ theme, toggleTheme }) {
             </DropdownMenu.Content>
           </DropdownMenu.Root>
         )}
-        <Link target="_blank" to="https://github.com/hitarth-gg/zenshin">
+        {/* <Link target="_blank" to="https://github.com/hitarth-gg/zenshin">
           <Button color="gray" variant="ghost" size={"1"}>
             <div className="p-1 text-[.8rem]">How to use</div>
           </Button>
-        </Link>
+        </Link> */}
         <Button color="gray" variant="ghost" size={"1"} onClick={() => toggleGlow()}>
           {zenshinContext.glow ? (
             <ShadowIcon className="my-1" width={16} height={16} />
