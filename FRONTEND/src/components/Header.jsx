@@ -2,6 +2,7 @@ import SearchBar from "./SearchBar";
 import { Link, useNavigate } from "react-router-dom";
 import zenshinLogo from "../assets/zenshinLogo.png";
 import {
+  CameraIcon,
   DividerVerticalIcon,
   GitHubLogoIcon,
   MoonIcon,
@@ -17,9 +18,7 @@ const YOUR_CLIENT_ID = 20712;
 const anilistAuthUrl = `https://anilist.co/api/v2/oauth/authorize?client_id=${YOUR_CLIENT_ID}&response_type=token`;
 /* ------------------------------------------------------ */
 
-
 export default function Header({ theme, toggleTheme }) {
-
   const zenshinContext = useZenshinContext();
   function toggleGlow() {
     zenshinContext.setGlow(!zenshinContext.glow);
@@ -46,11 +45,12 @@ export default function Header({ theme, toggleTheme }) {
   };
 
   useEffect(() => {
-
     // Check if token exists in the URL hash and set it
     const hash = window.location.hash;
     if (hash && hash.includes("access_token")) {
-      const token = new URLSearchParams(hash.replace("#", "?")).get("access_token");
+      const token = new URLSearchParams(hash.replace("#", "?")).get(
+        "access_token",
+      );
       if (token) {
         localStorage.setItem("anilist_token", token);
         setAnilistToken(token);
@@ -92,7 +92,6 @@ export default function Header({ theme, toggleTheme }) {
 
   /* ------------------------------------------------------ */
 
-
   return (
     <div className="sticky top-0 z-20 flex h-12 items-center justify-between border-[#5a5e6750] bg-[#111113] bg-opacity-60 px-4 py-3 backdrop-blur-md">
       <div className="flex w-full items-center justify-start gap-x-2">
@@ -123,29 +122,30 @@ export default function Header({ theme, toggleTheme }) {
           <div></div>
         ) : (
           <>
-          <DividerVerticalIcon width={20} height={20} color="#ffffff40" />
-          <Button color="gray" variant="ghost" size={"1"}>
-            <Link to="/favorites">
-              <div className="p-1 font-space-mono text-[.8rem]">Favorites</div>
-            </Link>
-          </Button>
+            <DividerVerticalIcon width={20} height={20} color="#ffffff40" />
+            <Button color="gray" variant="ghost" size={"1"}>
+              <Link to="/favorites">
+                <div className="p-1 font-space-mono text-[.8rem]">
+                  Favorites
+                </div>
+              </Link>
+            </Button>
           </>
-          
         )}
         {window.location.pathname === "/zenshin-axios/imagesearch" ? (
           <div></div>
         ) : (
           <>
-          <DividerVerticalIcon width={20} height={20} color="#ffffff40" />
-        <Link target="_blank" to="/imagesearch">
-          <Button color="gray" variant="ghost" size={"1"}>
-            <div className="p-1 font-space-mono text-[.8rem]">Reverse Image Search</div>
-          </Button>
-        </Link>
+            <DividerVerticalIcon width={20} height={20} color="#ffffff40" />
+            <Link target="_blank" to="/imagesearch">
+              <Button color="gray" variant="ghost" size={"1"}>
+                <div className="p-1 font-space-mono text-[.8rem]">
+                  <CameraIcon width={16} height={16} />
+                </div>
+              </Button>
+            </Link>
           </>
-        
-        )
-          }
+        )}
       </div>
 
       <div className="w-11/12">
@@ -198,7 +198,9 @@ export default function Header({ theme, toggleTheme }) {
                   <DropdownMenu.Item>Advanced options…</DropdownMenu.Item>
                 </DropdownMenu.SubContent>
               </DropdownMenu.Sub>
-              <DropdownMenu.Item color="red" onClick={handleLogout}>Logout</DropdownMenu.Item>
+              <DropdownMenu.Item color="red" onClick={handleLogout}>
+                Logout
+              </DropdownMenu.Item>
             </DropdownMenu.Content>
           </DropdownMenu.Root>
         )}
@@ -207,7 +209,12 @@ export default function Header({ theme, toggleTheme }) {
             <div className="p-1 text-[.8rem]">How to use</div>
           </Button>
         </Link> */}
-        <Button color="gray" variant="ghost" size={"1"} onClick={() => toggleGlow()}>
+        <Button
+          color="gray"
+          variant="ghost"
+          size={"1"}
+          onClick={() => toggleGlow()}
+        >
           {zenshinContext.glow ? (
             <ShadowIcon className="my-1" width={16} height={16} />
           ) : (
