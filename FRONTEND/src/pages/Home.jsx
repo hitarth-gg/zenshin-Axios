@@ -75,6 +75,36 @@ export default function Home() {
   console.log(data);
 
   useEffect(() => {
+    const extractTokenFromHash = () => {
+      const hash = window.location.hash;
+      
+      if (hash) {
+        const params = new URLSearchParams(hash.substring(1)); // Remove the # at the beginning
+        const accessToken = params.get('access_token');
+        const tokenType = params.get('token_type');
+        const expiresIn = params.get('expires_in');
+
+        if (accessToken) {
+          // Store the access token in local storage
+          localStorage.setItem('anilist_token', accessToken);
+          console.log(`Access Token: ${accessToken}`);
+          console.log(`Token Type: ${tokenType}`);
+          console.log(`Expires In: ${expiresIn}`);
+
+          // Optionally, you might want to clear the hash from the URL
+          window.location.hash = '';
+
+          toast.success("Successfully logged in to AniList", {
+            icon: <ExclamationTriangleIcon height="16" width="16" color="#ffffff" />,
+            classNames: {
+              title: "text-green-500",
+            },
+          });
+
+        }
+      }
+    };
+    extractTokenFromHash();
     if (data) {
       const newTopAnime = data.pages
         .map((page) => page)

@@ -8,6 +8,13 @@ import {
   SunIcon,
 } from "@radix-ui/react-icons";
 import { Button } from "@radix-ui/themes";
+// const YOUR_REDIRECT_URI= "http://localhost:5173/zenshin-axios/login"
+const YOUR_CLIENT_ID = 20712;
+const anilistAuthUrl = `https://anilist.co/api/v2/oauth/authorize?client_id=${YOUR_CLIENT_ID}&response_type=token`;
+
+const handleLogin = () => {
+  window.location.href = anilistAuthUrl;
+};
 
 export default function Header({ theme, toggleTheme }) {
   return (
@@ -48,6 +55,11 @@ export default function Header({ theme, toggleTheme }) {
             </Link>
           </Button>
         )}
+        <DividerVerticalIcon width={20} height={20} color="#ffffff40" />
+        <Button color="gray" variant="ghost" size={"1"} onClick={handleLogin}>
+          <div className="p-1 font-space-mono text-[.8rem] text-blue-500">Login to Anilist</div>
+        </Button>
+
       </div>
 
       <div className="w-11/12">
