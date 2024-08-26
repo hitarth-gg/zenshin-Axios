@@ -9,6 +9,7 @@ import Player from "./pages/Player";
 import Favorite from "./pages/FavoritePage";
 import NewReleases from "./pages/NewReleases";
 import AnilistCaller from "./pages/AnilistCaller";
+import ReverseImageSearch from "./pages/ImageSearch";
 
 // import { lazy } from "react";
 
@@ -49,6 +50,11 @@ const router = createBrowserRouter(
         {
           path: "/login",
           element: <AnilistCaller />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "/imagesearch",
+          element: <ReverseImageSearch />,
           errorElement: <ErrorPage />,
         }
         
