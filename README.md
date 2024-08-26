@@ -4,16 +4,20 @@
 
 A web based anime torrent streamer which can stream torrents in the browser and on the VLC media player as well.
 
-Built it as a mini project to familiarize myself with video streaming using ExpressJS and handling of streams and APIs in a ReactJS based frontend webapp.
+Built it as a mini project to familiarize ourselves with video streaming using ExpressJS and handling of streams and APIs in a ReactJS based frontend webapp.
 
-![image](https://github.com/user-attachments/assets/dad59995-f2e5-4a27-b933-d16c762bbe42)
-![image](https://github.com/user-attachments/assets/9abe8f0f-3eef-405c-b595-924cd2276b6b)
-![image](https://github.com/user-attachments/assets/5b2f79f7-85a4-4532-b5af-e1f3e5eeeb71)
-![image](https://github.com/user-attachments/assets/4e3ec7cf-2fec-4c1c-8a1d-d07dfbda2f53)
-![image](https://github.com/user-attachments/assets/bec74950-27c7-4b1a-ac7c-974e6d699739)
-![image](https://github.com/user-attachments/assets/e9baf709-dc2a-4b90-95b2-ff4dcfdd986d)
-![image](https://github.com/user-attachments/assets/1341c03b-0674-4d70-be95-e4d1bff3119e)
-![image](https://github.com/user-attachments/assets/ab95917b-11f5-4f02-a73f-43cfa2afc40f)
+![image](https://github.com/user-attachments/assets/2d255826-1384-454a-b41d-a96cd703ea01)
+![image](https://github.com/user-attachments/assets/1504eaee-e2e5-49f4-8a67-4358e34ca385)
+![image](https://github.com/user-attachments/assets/21c0b5bd-403a-414f-b049-cf71fd0948b5)
+![image](https://github.com/user-attachments/assets/94d683b5-53b9-4da9-af50-6db806beed1f)
+![image](https://github.com/user-attachments/assets/1e81c354-a869-44da-8782-791be96c599f)
+![image](https://github.com/user-attachments/assets/5fd8edf4-058e-4897-83ce-7b8d0b587e3e)
+![image](https://github.com/user-attachments/assets/1df24a1d-3cfd-4467-8728-92c0f8cf6540)
+![image](https://github.com/user-attachments/assets/dbdf823b-d6f5-4d7b-bd69-a71016347edc)
+![image](https://github.com/user-attachments/assets/be39431e-ebc9-40e7-87b4-ccc5a99ead2f)
+![image](https://github.com/user-attachments/assets/f42404db-c3b3-4ae8-ac74-bf5e5b1f01e7)
+
+
 
 ---
 
