@@ -118,34 +118,21 @@ export default function Header({ theme, toggleTheme }) {
             <div className="p-1 font-space-mono text-[.8rem]">New Releases</div>
           </Link>
         </Button>
-        {window.location.pathname === "/zenshin-axios/favorites" ? (
-          <div></div>
-        ) : (
-          <>
-            <DividerVerticalIcon width={20} height={20} color="#ffffff40" />
-            <Button color="gray" variant="ghost" size={"1"}>
-              <Link to="/favorites">
-                <div className="p-1 font-space-mono text-[.8rem]">
-                  Favorites
-                </div>
-              </Link>
-            </Button>
-          </>
-        )}
-        {window.location.pathname === "/zenshin-axios/imagesearch" ? (
-          <div></div>
-        ) : (
-          <>
-            <DividerVerticalIcon width={20} height={20} color="#ffffff40" />
-            <Link target="_blank" to="/imagesearch">
-              <Button color="gray" variant="ghost" size={"1"}>
-                <div className="p-1 font-space-mono text-[.8rem]">
-                  <CameraIcon width={16} height={16} />
-                </div>
-              </Button>
-            </Link>
-          </>
-        )}
+        <DividerVerticalIcon width={20} height={20} color="#ffffff40" />
+        <Button color="gray" variant="ghost" size={"1"}>
+          <Link to="/favorites">
+            <div className="p-1 font-space-mono text-[.8rem]">Favorites</div>
+          </Link>
+        </Button>
+
+        <DividerVerticalIcon width={20} height={20} color="#ffffff40" />
+        <Link to="/imagesearch">
+          <Button color="gray" variant="ghost" size={"1"}>
+            <div className="p-1 font-space-mono text-[.8rem]">
+              <CameraIcon width={16} height={16} />
+            </div>
+          </Button>
+        </Link>
       </div>
 
       <div className="w-11/12">
