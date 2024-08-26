@@ -4,8 +4,8 @@ import * as HoverCard from '@radix-ui/react-hover-card';
 
 const SearchResultCard = ({ result }) => {
   return (
-    <div className="relative bg-gray-800 shadow-lg rounded-lg overflow-hidden max-w-sm m-4 transition-all ease-in-out hover:scale-110">
-      <div className="p-4 bg-gray-800">
+    <div className="relative font-space-mono border border-gray-600 shadow-lg  overflow-hidden max-w-sm m-4 transition-all ease-in-out hover:scale-110">
+      <div className="p-4 ">
         <h2 className="text-lg font-bold text-white-800 h-20">{`Anime: ${result.filename}`}</h2>
       </div>
       <div className="p-4">
@@ -16,7 +16,7 @@ const SearchResultCard = ({ result }) => {
         <HoverCard.Root>
           <HoverCard.Trigger asChild>
             <img
-              className="rounded mt-4 cursor-pointer w-80 h-56"
+              className="duration-400 z-10 h-60 aspect-video animate-fade rounded-sm object-cover transition-all ease-in-out"
               src={result.image}
               alt="Preview"
               referrerPolicy="no-referrer"
@@ -24,12 +24,12 @@ const SearchResultCard = ({ result }) => {
           </HoverCard.Trigger>
           <HoverCard.Portal>
             <HoverCard.Content
-              className="HoverCardContent bg-gray-800 p-4 rounded shadow-lg"
+              className="HoverCardContent  p-4 rounded shadow-lg"
               sideOffset={5}
             >
               <div className="flex flex-col gap-3">
                 <img
-                  className="rounded w-full"
+                  className=""
                   src={result.image}
                   alt="Detailed Preview"
                   referrerPolicy="no-referrer"
@@ -46,12 +46,12 @@ const SearchResultCard = ({ result }) => {
           </HoverCard.Portal>
         </HoverCard.Root>
       </div>
-      <div className="p-4 bg-gray-800 ">
+      <div className="p-4 ">
         <a
           href={result.video}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 absolute bottom-0 "
+          className="duration-400 z-10 h-60 w-40 animate-fade rounded-md object-cover transition-all ease-in-out"
         >
           Watch Preview
         </a>

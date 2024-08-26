@@ -176,7 +176,7 @@ export default function Home() {
             console.error("GraphQL error:", data.errors);
           } else {
             console.log("Media list collection:", data);
-            setWatchingAnime(data?.data?.MediaListCollection?.lists[2]?.entries);
+            setWatchingAnime(data?.data?.MediaListCollection?.lists[0]?.entries);
           }
         })
         .catch((error) =>
